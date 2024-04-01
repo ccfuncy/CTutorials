@@ -1,6 +1,13 @@
 cmake_minimum_required(VERSION 3.26)
-project(CTutorials C)
+
+get_filename_component(ProjectId ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+string(REPLACE " " "-" ProjectId ${ProjectId})
+project(${ProjectId} C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(CTutorials main.c)
+file(GLOB files "${CMAKE_CURRENT_SOURCE_DIR}/*.c")
+foreach (file ${files})
+    get_filename_component(name ${file} NAME)
+    add_executable(${name} ${file})
+endforeach ()
